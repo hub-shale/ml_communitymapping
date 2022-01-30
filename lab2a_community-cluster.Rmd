@@ -1,6 +1,7 @@
 ---
 title: "Lab 2a. Community - Cluster"
-author: "Ben Best"
+subtitle: "Based on a Template from Ben Best"
+author: "Shale Hunter"
 date: "1/18/2022"
 output: html_document
 bibliography: ["ml-env.bib"]
@@ -12,19 +13,18 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Learning Objectives {.unnumbered}
+### Notes
 
-In this lab, you will play with **unsupervised classification** techniques while working with **ecological community** datasets.
-
-- Comparing species counts between sites using **distance** metrics:
+Distance metrics:
 
   - **Euclidean** calculates the distance between a virtualized space using Pythagorean theorem.
   
   - **Manhattan** calculates integer "around the block" difference.
   
+  
   - **Bray-Curtis** dissimilarity is based on the sum of lowest counts of shared species between sites over the sum of all species. A dissimilarity value of 1 is completely dissimilar, i.e. no species shared. A value of 0 is completely identical.
 
-- **Clustering**
+**Clustering:**
 
   - **_K_-Means clustering** with function `kmeans()` given a pre-assigned number of clusters assigns membership centroid based on reducing within cluster variation.
   
@@ -37,8 +37,6 @@ In this lab, you will play with **unsupervised classification** techniques while
     - **Divisive hierarchical clustering**, such as with `agnes()`, divides as it builds the tree. It is good at identifying large clusters.
     
     - **Dendrograms** visualize the branching tree.
-
-- **Ordination** (coming Monday)
 
 # Clustering
 
@@ -63,14 +61,10 @@ librarian::shelf(
   dplyr, DT, ggplot2, tibble)
 
 # set seed for reproducible results
-set.seed(42)
+set.seed(404)
 
 # load the dataset
 data("iris")
-
-# look at documentation in RStudio
-if (interactive())
-  help(iris)
 
 # show data table
 datatable(iris)
@@ -108,7 +102,8 @@ iris_k
 table(iris_k$cluster, iris$Species)
 ```
 
-**Question**: How many observations could be considered "misclassified" if expecting petal length and width to differentiate between species?
+**Question**: How many observations could be considered "misclassified" if expecting petal length and width to differentiate between species? 
+**2 _versicolor_ were misclassified as _virginica_, and 4 _virginica_ were misclassified as _versicolor_.**
 
 ```{r}
 # extract cluster assignment per observation
@@ -121,6 +116,10 @@ ggplot(iris, aes(Petal.Length, Petal.Width, color = Cluster)) +
 
 ```{r, eval=F, echo=F}
 # **Task**: Highlight the "misclassified" points in the plot. _Hints: To get just the points misclassified, you can use `iris_k$cluster != as.integer(iris$Species)`, which can feed as the second argument into `filter(iris)`. To add another set of points to the ggplot, use `+ geom_point()` with arguments for: `data` with the additional points, `pch` [point shape](https://www.r-bloggers.com/2021/06/r-plot-pch-symbols-different-point-shapes-in-r/) with `fill=NA` for transparency and outline `color="red"`._
+```
+
+
+```{r, eval=F, echo=F}
 obs_mis <- iris %>% 
   filter(iris_k$cluster != as.integer(iris$Species))
 ggplot(iris, aes(Petal.Length, Petal.Width, color = Cluster)) +
