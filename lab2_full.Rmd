@@ -415,11 +415,72 @@ vare.mds0 <- monoMDS(vare.dis)
 stressplot(vare.mds0)
 ```
 
-#### Question: The “stress” in a stressplot represents the difference between the observed inpnut distance versus the fitted ordination distance. How much better is the non-metric (i.e., NMDS) fit versus a linear fit (as with PCA) in terms of \(R^2\)?
+#### Question: The “stress” in a stressplot represents the difference between the observed input distance versus the fitted ordination distance. How much better is the non-metric (i.e., NMDS) fit versus a linear fit (as with PCA) in terms of \(R^2\)?
+
+**The linear fit has an R2 of 0.873 and the NMRS fit has an R2 of 0.977, which means the NMRS fit explains 10.4% more of the variation in ordination distance based on observed dissimilarity.**
+
+```{r}
+ordiplot(vare.mds0, type = "t")
+
+vare.mds <- metaMDS(varespec, trace = FALSE)
+vare.mds
+
+plot(vare.mds, type = "t")
+```
+
+#### Question: What two sites are most dissimilar based on species composition for the first component MDS1? And two more most dissimilar sites for the second component MDS2?
+
+**Based on MDS1 sites 28 and 4 are most dissimilar, but based on MDS2 21 and 5 are most dissimilar.**
+
+#### 	Question: What is the basic difference between metaMDS and monoMDS()? 
+
+**`metaMDS()` is a way to run `monoMDS()` many times from random starts (this helps avoid finding local optimum instead of global optimum).**
+
+```{r}
+ef <- envfit(vare.mds, varechem, permu = 999)
+
+plot(vare.mds, display = "sites")
+plot(ef, p.max = 0.05)
+```
+
+#### 	Question: What two soil chemistry elements have the strongest negative relationship with NMDS1 that is based on species composition?
+
+**Aluminum (Al) and Iron (Fe) have the strongest (longest arrows) negative correlation with NMDS1.**
+
+```{r}
+ef <- envfit(vare.mds ~ Al + Ca, data = varechem)
+plot(vare.mds, display = "sites")
+plot(ef)
+
+tmp <- with(varechem, ordisurf(vare.mds, Al, add = TRUE))
+ordisurf(vare.mds ~ Ca, data=varechem, add = TRUE, col = "green4")
+```
+
+#### 	Question: Which of the two NMDS axes differentiates Ca the most, i.e. has the highest value given by the contours at the end (and not middle) of the axis?
+
+****
+
+### Constrained Ordination
+
+#### Question: What is the difference between “constrained” versus “unconstrained” ordination within ecological context?
 
 ****
 
 ```{r}
+# ordinate on species constrained by three soil elements
+vare.cca <- cca(varespec ~ Al + P + K, varechem)
+vare.cca
 
+# plot ordination
+plot(vare.cca)
+```
+
+#### 	Question: What sites are most differentiated by CCA1, i.e. furthest apart along its axis, based on species composition AND the environmnent? What is the strongest environmental vector for CCA1, i.e. longest environmental vector in the direction of the CCA1 axes?
+
+****
+
+```{r}
+# plot 3 dimensions
+ordiplot3d(vare.cca, type = "h")
 ```
 
