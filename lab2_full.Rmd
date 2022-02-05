@@ -456,15 +456,15 @@ tmp <- with(varechem, ordisurf(vare.mds, Al, add = TRUE))
 ordisurf(vare.mds ~ Ca, data=varechem, add = TRUE, col = "green4")
 ```
 
-#### 	Question: Which of the two NMDS axes differentiates Ca the most, i.e. has the highest value given by the contours at the end (and not middle) of the axis?
+#### 	Describe in general terms (upper/lower/left/right/middle) where the highest and lowest values are found for Ca with respect to the ordination axes NMDS1 and NMDS2 (ie the ordination axes that describe the most variation of species composition between sites).
 
-****
+**Calcuim concentrations, as indicated by green contour lines, are generally lowest at the intersection of low NMDS1 and low NMDS2 (bottom left), and highest at high NMDS1/low NMDS2 (bottom/middle right, marked by the 700 contour line), though also quite high along the entire top of the chart which indicates high NMDS2 and all levels of NMDS1. **
 
 ### Constrained Ordination
 
 #### Question: What is the difference between “constrained” versus “unconstrained” ordination within ecological context?
 
-****
+**Unconstrained ordination displays all compositional variation within a dataset, whereas constrained ordination is used to show only the variation which can be explained by our environmental variables.**
 
 ```{r}
 # ordinate on species constrained by three soil elements
@@ -477,7 +477,7 @@ plot(vare.cca)
 
 #### 	Question: What sites are most differentiated by CCA1, i.e. furthest apart along its axis, based on species composition AND the environmnent? What is the strongest environmental vector for CCA1, i.e. longest environmental vector in the direction of the CCA1 axes?
 
-****
+**CCA1 differentiates sites 28 and 4 the most, with Aluminum being the environmental vector that has the strongest effect in CCA1 (here, site 4 has high Al and 28 has quite low Al).**
 
 ```{r}
 # plot 3 dimensions
