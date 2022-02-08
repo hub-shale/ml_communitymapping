@@ -572,7 +572,6 @@ Now, let's compare the solutions.
 5. Why does the third solution (`s3`) cost less than the fourth solution solution with highly degraded areas locked out (`s4`)?
   **Because in order to not use highly degraded areas, one net additional unit had to be added in `s4`, which increases costs.**
 
-```
 
 ## Penalizing fragmentation
 
@@ -630,7 +629,7 @@ Now let's compare the solutions to the problems with (`s5`) and without (`s4`) t
 1. What is the cost the fourth (`s4`) and fifth (`s5`) solutions? Why does the fifth solution (`s5`) cost more than the fourth (`s4`) solution?
   **`s4` would cost 6712 million Australian dollars, while `s5` would cost 6748 million Australian dollars (36 million more).** 
 2. Try setting the penalty value to 0.000000001 (i.e. `1e-9`) instead of 0.001. What is the cost of the solution now? Is it different from the fourth solution (`s4`) (hint: try plotting the solutions to visualize them)? Is this is a useful penalty value? Why (or why not)?
-  **The new cost is `6712`, which is the same as `s4`. The low penalty means that it is only slightly different from `s4` spatially, and not at all in terms of cost.**
+  **The new cost is 6712, which is the same as `s4`. The low penalty means that it is only slightly different from `s4` spatially, and not at all in terms of cost.**
 3. Try setting the penalty value to 0.5. What is the cost of the solution now? Is it different from the fourth solution (`s4`) (hint: try plotting the solutions to visualize them)? Is this a useful penalty value? Why (or why not)?
   **With a penalty of 0.5 the new cost is 9817 million AUD. This is not a very useful value because the cost is prohibitively high and the solution basically takes over 2/3 of the entire map area.**
 
